@@ -10,6 +10,7 @@ use AppBundle\Event\ConnectionCreatedEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("admin")
@@ -82,9 +83,11 @@ class DefaultController extends Controller
         } else {
             $categories = $this->getGeneralCategoryRepository()->findAll();
         }
-
+        
+        $stat=$this->getConnectionRequestRepository()->getStat();
 
         $parameters = [
+        	'stat' => $stat,
             'categories' => $categories,
             'learners' => $learners,
             'fluentSpeakers' => $fluentSpeakers,

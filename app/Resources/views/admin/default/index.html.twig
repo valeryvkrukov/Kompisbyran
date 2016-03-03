@@ -70,100 +70,117 @@
 {% endmacro %}
 
 {% block body %}
-
-
 <div class="inner-page testimonial">
-    <div class="container">
-
-            <div class="inner-tab">
-                <ul class="nav nav-tabs">
-                    {% for loopedCity in cities %}
-                        <li{% if loopedCity == city %} class="active"{% endif %}>
-                            <a href="{{ path('admin_start', {'id': loopedCity.id, 'type': type}) }}">{{ loopedCity.name }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-
-        <div id="filters">
-            {% for category in categories %}
-                <label>
-                    <input type="checkbox" name="category" value="{{ category.id }}"> {{ category.name }}
-                </label>&nbsp;&nbsp;&nbsp;
-            {% endfor %}
-        </div>
-
-        <div class="inner-testimonial row">
-
-            <form method="POST" action="" id="connectionForm">
-                <div class="col-md-6 col-sm-6">
-                    <h2>Övare</h2>
-                    <div class="row">
-                        {% for connectionRequest in learners %}
-                            {{ macro.connectionRequestItem(connectionRequest, 'learner', loop.first, type) }}
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6">
-                    <h2 style="clear:both">Lärare</h2>
-                    <div class="row">
-                        {% for connectionRequest in fluentSpeakers %}
-                            {{ macro.connectionRequestItem(connectionRequest, 'fluentSpeaker', loop.first, type) }}
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <p style="clear:both">
-                    <input type="submit"
-                        {% if learners|length == 0 or fluentSpeakers|length == 0 %}disabled="disabled"{% endif %}
-                        class="btn btn-default"
-                    >
-                </p>
-
-            </form>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						{{ 'Select region'|trans }}
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu city-select" aria-labelledby="dropdownMenu1">
+						{% for loopedCity in cities %}
+							<li{#% if loopedCity == city %} class="active"{% endif %#}>
+								<a href="#" data-path="{{ path('admin_start', {'id': loopedCity.id, 'type': type}) }}" data-city-id="{{ loopedCity.id }}" data-city-name="{{ loopedCity.name }}">{{ loopedCity.name }}</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<a href="#" class="btn btn-default btn-md">{{ 'Find Matches'|trans }}</a>
+				<a href="#" class="btn btn-default btn-md">{{ 'Manual Handling'|trans }}</a>
+				<a href="#" class="btn btn-default btn-md">{{ 'Statistics'|trans }}</a>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 40px;">
+			<div class="col-md-12">
+				<p>Hi! Right now we have <strong class="learners-num">{{ learners|length }} new</strong> &amp; <strong class="established-num">{{ fluentSpeakers|length }} established</strong> to match in <span class="stat-city-name">{{ city.name }}</span>. Thank you for helping out!</p>
+				<p>Last month we matched 30 people, so far we have matched 16 people this month.</p>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 40px;">
+			<h1>1. Choose a person to find a match for</h1>
+			<p>The people that have been waiting longest are displayed on top. "Match"-percentage tells you how good of a match the system could find.</p>
+			<table class="table table-bordered">
+				<thead> 
+					<tr>
+						<th data-sort="createdAt" class="sortable-row"><span class="fa fa-angle-down"></span>{{ 'Date for request'|trans }}</th> 
+						<th data-sort="firstName" class="sortable-row"><span class="fa fa-angle-down"></span> {{ 'Name'|trans }}</th> 
+						<th data-sort="wantToLearn" class="sortable-row"><span class="fa fa-angle-down"></span> {{ 'Category'|trans }}</th> 
+						<th>{{ 'Action'|trans }}</th> 
+					</tr> 
+				</thead>
+				<tbody class="persons-list-body"></tbody>
+			</table>
+			<div class="text-center">
+				<a href="#" class="btn btn-lg btn-default show-more-btn">{{ 'Show 20 more'|trans }}</a>
+			</div>
+		</div>
+	</div>
 </div>
-
 {% endblock %}
 
 {% block javascripts %}
     <script>
-        $(function () {
-            $('#connectionForm').submit(function (e) {
-                if (confirm('Vill du koppla ihop ' + $('input[name=learner]:checked').data('name') + ' och ' + $('input[name=fluentSpeaker]:checked').data('name') + '?')) {
-                    return;
-                }
-
-                e.preventDefault();
-            });
-
-            $('#filters input').change(function () {
-                var categoryIds = [];
-                $('#filters input:checked').each(function () {
-                    categoryIds.push($(this).val());
-                });
-
-                $('.connection-request-item').each(function () {
-                    var userCategoryIds = $(this).data('categories').split(',');
-                    var found = 0;
-
-                    $.each(categoryIds, function (i, categorydId) {
-                        $.each(userCategoryIds, function (ii, userCategoryId) {
-                            if (userCategoryId == categorydId) {
-                                found++;
-                                return false;
-                            }
-                        });
-                    });
-                    if (found == categoryIds.length) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
-            });
+    jQuery(document).ready(function($){
+		$('.city-select').data('current-city',{{ city.id }});
+        var loadUsers=function(city){
+            var _data={
+                city:$('.city-select').data('current-city'),
+            	exclude:$('.persons-list-body').data('loaded')
+            };
+	        $.ajax({
+	            url:'{{ path('ajax_get_requests_list') }}',
+	            type:'post',
+	            dataType:'json',
+	            data:_data,
+	            success:function(resp){
+		            if(resp.status==='ok'){
+			            var _loaded=$('.persons-list-body').data('loaded')?$('.persons-list-body').data('loaded'):[];
+			            $.each(resp.users,function(k,item){
+				            var row=$('<tr><td>'+item.request_at+'</td><td>'+item.username+'</td><td>'+item.category+'</td><td><a href="#" data-user-id="'+item.user_id+'" class="btn btn-orange">{{ 'Find Match'|trans }}</a></td></tr>').hide();
+				            $('.persons-list-body').append(row);
+				            _loaded.push(item.req_id);
+				        });
+				        $('.learners-num').text(resp.statistics.learners+' new');
+				        $('.established-num').text(resp.statistics.established+' established');
+				        $('.stat-city-name').text($('.city-select li.active a').data('city-name'));
+				        $('.persons-list-body tr:hidden').fadeIn('slow');
+				        $('.persons-list-body').data('loaded',_loaded);
+			        }else if(resp.status=='zero'){
+				        if($('.persons-list-body .zero-row').length==0){
+				        	$('.persons-list-body').append($('<tr><td colspan="4" class="zero-row">'+resp.message+'</td></tr>'));
+				        }
+				        if(resp.statistics){
+					        $('.learners-num').text('0 new');
+					        $('.established-num').text('0 established');
+					        $('.stat-city-name').text($('.city-select li.active a').data('city-name'));
+						}
+				    }
+		        }
+	        });
+    	};
+    	$('.show-more-btn').click(function(e){
+        	e.preventDefault();
+    		loadUsers();
+       	});
+       	$('th.sortable-row').click(function(e){
+           	e.preventDefault();
+           	var targ=$(this).find('span:first').hasClass('fa-angle-down')?$(this).find('span:first').removeClass('fa-angle-down').addClass('fa-angle-up'):$(this).find('span:first').removeClass('fa-angle-up').addClass('fa-angle-down');
+           	
         });
+        $('.city-select a').click(function(e){
+            e.preventDefault();
+            $('.city-select').data('current-city',$(this).data('city-id'));
+            $('.city-select li').removeClass('active');
+            $(this).parent('li').addClass('active');
+            $('.persons-list-body').data('loaded',null);
+            $('.persons-list-body').html('');
+            loadUsers();
+        });
+       	$('.show-more-btn').trigger('click');
+    });
     </script>
 {% endblock %}
