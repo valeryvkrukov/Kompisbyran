@@ -42,3 +42,6 @@ services:
             - [ setDefaultLocale, [ %locale% ] ]
             - [ setTranslationFallback, [ true ] ]
 
+    admin_ajax_data:
+        class: AppBundle\Service\AjaxData
+        arguments: [ @doctrine.orm.entity_manager ]
