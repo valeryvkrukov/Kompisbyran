@@ -1,0 +1,253 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="inner-page testimonial">
+	<div class="container">
+		<div class="row" style="margin-top: 40px;">
+			<h1>{{ '2. Find a match for'|trans }} {{ fullname }}</h1>
+			<h2>{{ '2.1 Read through the profile'|trans }}</h2>
+		</div>
+		<div class="row" style="margin-bottom: 10px;">
+			<div class="col-md-12">
+				<div class="pull-right">
+					<a href="" class="btn btn-orange">{{ 'Edit profile'|trans }}</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="matchProfile_firstName" class="col-sm-2 control-label">{{ 'Name'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(profileForm.fullName,{'attr':{'readonly':'readonly'}}) }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="matchProfile_email" class="col-sm-2 control-label">{{ 'Email'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(profileForm.email,{'attr':{'readonly':'readonly'}}) }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="matchProfile_age" class="col-sm-2 control-label">{{ 'Age'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(profileForm.age,{'attr':{'readonly':'readonly'}}) }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">{{ 'Category'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(profileForm.wantToLearn,{'attr':{'readonly':'readonly'}}) }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="matchProfile_from" class="col-sm-2 control-label">{{ 'Country'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(profileForm.from,{'attr':{'readonly':'readonly'}}) }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="matchProfile_district" class="col-sm-2 control-label">{{ 'Area'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(profileForm.district,{'attr':{'readonly':'readonly'}}) }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="matchProfile_hasChildren" class="col-sm-2 control-label">{{ 'Children'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(profileForm.hasChildren,{'attr':{'readonly':'readonly'}}) }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="matchProfile_wantToLearn" class="col-sm-2 control-label">{{ 'Type'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(profileForm.musicFriend,{'attr':{'readonly':'readonly'}}) }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">{{ 'Interests'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(profileForm.categories,{'attr':{'readonly':'readonly'}}) }}
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-7">
+				<form>
+					<div class="form-group">
+						<label for="matchProfile_about">{{ 'Description'|trans }}</label>
+						{{ form_widget(profileForm.about,{'attr':{'readonly':'readonly','rows':3}}) }}
+					</div>
+
+					<div class="form-group">
+						<label for="matchProfile_comment">{{ 'Match Request'|trans }}</label>
+						{{ form_widget(profileForm.comment,{'attr':{'readonly':'readonly','rows':3}}) }}
+					</div>
+					<div class="form-group">
+						<label for="matchProfile_internalComment">{{ 'Internal note'|trans }}</label>
+						{{ form_widget(profileForm.internalComment,{'attr':{'readonly':'readonly','rows':3}}) }}
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<h2>{{ '2.2 Filter if necessary'|trans }}</h2>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">{{ 'Interests'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(filterForm.category) }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">{{ 'Age'|trans }}</label>
+						<div class="col-sm-3">
+							{{ form_widget(filterForm.ageFrom) }}
+						</div>
+						<div class="col-sm-1">
+							<strong>-</strong>
+						</div>
+						<div class="col-sm-3">
+							{{ form_widget(filterForm.ageTo) }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">{{ 'Gender'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(filterForm.gender) }}
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-4">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">{{ 'Children'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(filterForm.hasChildren) }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">{{ 'Country'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(filterForm.country) }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">{{ 'Area'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(filterForm.municipality) }}
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-4">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">{{ 'Type'|trans }}</label>
+						<div class="col-sm-10">
+							{{ form_widget(filterForm.type) }}
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<h2>{{ '2.3 Choose a person to match '~fullname~' with'|trans }}</h2>
+			<p>"Match"-score is a measurement on how good match the system could find. These candidates has the best matching score:</p>
+			<div class="row candidate">
+				<div class="col-md-1">
+					<p class="score">11</p>
+				</div>
+				<div class="col-md-9 presentation">
+					<div class="pull-right">
+						<a href="" class="btn btn-orange">Edit Profile</a>
+					</div>
+					<h4>Name Surname (<span class="matches">33 years</span>, Sweden, <span class="matches">Old Town</span>, no kids)</h4>
+					<p class="interests">Matching interests: <span class="matches">Music</span>, <span class="matches">Movies</span>, <span class="matches">Family</span></p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum risus. Sed ipsum justo, consequat vel blandit vitae, gravida rutrum mauris. Nunc vulputate libero lectus, eget tincidunt diam eleifend sit amet. Etiam ac efficitur purus, ac tincidunt est. Aenean sit amet justo sit amet diam vehicula sagittis ut non arcu. Quisque cursus venenatis nulla quis maximus. Donec quis dui et enim dignissim ultrices varius id turpis. Praesent tempus rhoncus est, a hendrerit elit mattis eu. Sed sagittis nulla in enim lacinia viverra. Etiam eu risus ipsum. Nulla ornare urna massa, vel efficitur enim eleifend nec. Etiam imperdiet, neque eget efficitur congue, nisi dui porta neque, non luctus elit risus at tortor.
+
+					</p>
+
+				</div>
+				<div class="col-md-2 choice">
+					<p><strong>Choose candidate</strong></p>
+					<input type="radio" name="gender" value="1">
+				</div>
+			</div>
+			<div class="row candidate">
+				<div class="col-md-1">
+					<p class="score">9</p>
+				</div>
+				<div class="col-md-9 presentation">
+					<div class="pull-right">
+						<a href="" class="btn btn-orange">Edit Profile</a>
+					</div>
+					<h4>Name Surname (36 years, Sweden, <span class="matches">Old Town</span>, no kids)</h4>
+					<p class="interests">Matching interests: <span class="matches">Music</span>, <span class="matches">Family</span></p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum risus. Sed ipsum justo, consequat vel blandit vitae, gravida rutrum mauris. Nunc vulputate libero lectus, eget tincidunt diam eleifend sit amet. Etiam ac efficitur purus, ac tincidunt est. Aenean sit amet justo sit amet diam vehicula sagittis ut non arcu. Quisque cursus venenatis nulla quis maximus. Donec quis dui et enim dignissim ultrices varius id turpis. Praesent tempus rhoncus est, a hendrerit elit mattis eu. Sed sagittis nulla in enim lacinia viverra. Etiam eu risus ipsum. Nulla ornare urna massa, vel efficitur enim eleifend nec. Etiam imperdiet, neque eget efficitur congue, nisi dui porta neque, non luctus elit risus at tortor.
+
+					</p>
+
+				</div>
+				<div class="col-md-2 choice">
+					<p><strong>Choose candidate</strong></p>
+					<input type="radio" name="gender" value="1">
+				</div>
+			</div>
+			<div class="row candidate">
+				<div class="col-md-1">
+					<p class="score">8</p>
+				</div>
+				<div class="col-md-9 presentation">
+					<div class="pull-right">
+						<a href="" class="btn btn-orange">Edit Profile</a>
+					</div>
+					<h4>Name Surname (<span class="matches">32 years</span>, Sweden, Sollentuna, <span class="matches">kids</span>)</h4>
+					<p class="interests">Matching interests: <span class="matches">Dance</span>, <span class="matches">Family</span></p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum risus. Sed ipsum justo, consequat vel blandit vitae, gravida rutrum mauris. Nunc vulputate libero lectus, eget tincidunt diam eleifend sit amet. Etiam ac efficitur purus, ac tincidunt est. Aenean sit amet justo sit amet diam vehicula sagittis ut non arcu. Quisque cursus venenatis nulla quis maximus. Donec quis dui et enim dignissim ultrices varius id turpis. Praesent tempus rhoncus est, a hendrerit elit mattis eu. Sed sagittis nulla in enim lacinia viverra. Etiam eu risus ipsum. Nulla ornare urna massa, vel efficitur enim eleifend nec. Etiam imperdiet, neque eget efficitur congue, nisi dui porta neque, non luctus elit risus at tortor.
+
+					</p>
+
+				</div>
+				<div class="col-md-2 choice">
+					<p><strong>Choose candidate</strong></p>
+					<input type="radio" name="gender" value="1">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 more-candidates">
+					<a href="" class="btn btn-lg btn-default">Show 5 more candidates</a>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<h2>2.4 Review the emails that will be sent</h2>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<h4>Email to XXXXXX</h4>
+				<textarea class="form-control" rows="12">Hello!&#13;&#10;&#13;&#10;One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.&#13;&#10;&#13;&#10;He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.&#13;&#10;&#13;&#10;The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me? " he thought. It wasn't a dream. His room, a proper human</textarea>
+			</div>
+			<div class="col-md-6">
+				<h4>Email to match</h4>
+				<textarea class="form-control" rows="12">Hello!&#13;&#10;&#13;&#10;One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.&#13;&#10;&#13;&#10;He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.&#13;&#10;&#13;&#10;The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me? " he thought. It wasn't a dream. His room, a proper human</textarea>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<h2>2.5 Approve the match</h2>
+			<p>Does the match feel good? Then it's time to approve it and send out emails.</p>
+			<a class="btn btn-large btn-orange">Approve &amp; send emails</a>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
