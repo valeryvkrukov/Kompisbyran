@@ -103,12 +103,12 @@
 		<div class="row" style="margin-top: 40px;">
 			<h1>1. Choose a person to find a match for</h1>
 			<p>The people that have been waiting longest are displayed on top. "Match"-percentage tells you how good of a match the system could find.</p>
-			<table class="table table-bordered">
-				<thead> 
+			<table class="table table-bordered persons-list">
+				<thead class="persons-list-head"> 
 					<tr>
-						<th data-sort="createdAt" class="sortable-row"><span class="fa fa-angle-down"></span>{{ 'Date for request'|trans }}</th> 
-						<th data-sort="firstName" class="sortable-row"><span class="fa fa-angle-down"></span> {{ 'Name'|trans }}</th> 
-						<th data-sort="wantToLearn" class="sortable-row"><span class="fa fa-angle-down"></span> {{ 'Category'|trans }}</th> 
+						<th data-sort="createdAt" data-col="0" class="sortable-row"><span class="fa fa-angle-down"></span>{{ 'Date for request'|trans }}</th> 
+						<th data-sort="firstName" data-col="1" class="sortable-row"><span class="fa fa-angle-down"></span> {{ 'Name'|trans }}</th> 
+						<th data-sort="wantToLearn" data-col="2" class="sortable-row"><span class="fa fa-angle-down"></span> {{ 'Category'|trans }}</th> 
 						<th>{{ 'Action'|trans }}</th> 
 					</tr> 
 				</thead>
@@ -124,6 +124,47 @@
 
 {% block javascripts %}
     <script>
+    var sortTable=function(){
+    	var rows=$('.persons-list tbody tr').get();
+    	var col=parseInt($('.persons-list').data('order-by-col'));
+    	var dir=$('.persons-list').data('order-dir')=='desc'?[-1,1]:[1,-1];
+    	rows.sort(function(a,b){
+    		var A=$(a).children('td').eq(col).text().toUpperCase();
+    		var B=$(b).children('td').eq(col).text().toUpperCase();
+    		switch(col){
+    			case 0:
+    				if((new Date(A).getTime()<new Date(B).getTime())){
+    					return dir[0];
+					}
+    				if((new Date(A).getTime()>new Date(B).getTime())){
+    					return dir[1];
+					}
+    				return 0;
+    				break;
+    			case 1:
+    				if(A<B){
+    					return dir[0];
+					}
+    				if(A>B){
+    					return dir[1];
+					}
+    				return 0;
+    				break;
+    			case 2:
+    				if(A<B){
+    					return dir[0];
+					}
+    				if(A>B){
+    					return dir[1];
+					}
+    				return 0;
+    				break;
+			}
+		});
+		$.each(rows,function(index,row){
+			$('.persons-list-body').append(row);
+		});
+	};
     jQuery(document).ready(function($){
 		$('.city-select').data('current-city',{{ city.id }});
         var loadUsers=function(city){
@@ -140,7 +181,7 @@
 		            if(resp.status==='ok'){
 			            var _loaded=$('.persons-list-body').data('loaded')?$('.persons-list-body').data('loaded'):[];
 			            $.each(resp.users,function(k,item){
-				            var row=$('<tr><td>'+item.request_at+'</td><td>'+item.username+'</td><td>'+item.category+'</td><td><a href="#" data-user-id="'+item.user_id+'" class="btn btn-orange">{{ 'Find Match'|trans }}</a></td></tr>').hide();
+				            var row=$('<tr><td>'+item.request_at+'</td><td>'+item.username+'</td><td>'+item.category+'</td><td><a href="{{ path('admin_find_match') }}/'+item.user_id+'" class="btn btn-orange find-match">{{ 'Find Match'|trans }}</a></td></tr>').hide();
 				            $('.persons-list-body').append(row);
 				            _loaded.push(item.req_id);
 				        });
@@ -168,8 +209,17 @@
        	});
        	$('th.sortable-row').click(function(e){
            	e.preventDefault();
-           	var targ=$(this).find('span:first').hasClass('fa-angle-down')?$(this).find('span:first').removeClass('fa-angle-down').addClass('fa-angle-up'):$(this).find('span:first').removeClass('fa-angle-up').addClass('fa-angle-down');
-           	
+           	var dir='desc';
+           	if($(this).find('span:first').hasClass('fa-angle-down')){
+           		$(this).find('span:first').removeClass('fa-angle-down').addClass('fa-angle-up');
+           		dir='desc';
+			}else{
+				$(this).find('span:first').removeClass('fa-angle-up').addClass('fa-angle-down');
+				dir='asc';
+			}
+           	$('.persons-list').data('order-by-col',$(this).data('col'));
+           	$('.persons-list').data('order-dir',dir);
+           	sortTable();
         });
         $('.city-select a').click(function(e){
             e.preventDefault();
