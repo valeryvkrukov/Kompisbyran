@@ -22,6 +22,7 @@ class MatchController extends Controller{
 		$profileForm=$this->get('form.factory')->create(new MatchProfileType(),$user);
 		$filterForm=$this->get('form.factory')->create(new MatchFilterType($em));
 		$parameters=array(
+			'user'=>$user,
 			'fullname'=>trim(sprintf('%s %s',$user->getFirstName(),$user->getLastName())),
 			'profileForm'=>$profileForm->createView(),
 			'filterForm'=>$filterForm->createView()
