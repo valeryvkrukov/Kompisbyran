@@ -41,11 +41,13 @@ class MatchFilterType extends AbstractType{
 			])
 			->add('ageFrom','choice',[
 				'label'=>'Age From',
+				'data'=>0,
 				'choices'=>range(18,100),
 				'mapped'=>false
 			])
 			->add('ageTo','choice',[
 				'label'=>'Age To',
+				'data'=>82,
 				'choices'=>range(18,100),
 				'mapped'=>false
 			])
