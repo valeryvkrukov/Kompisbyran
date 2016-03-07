@@ -56,7 +56,7 @@ class MatchProfileType extends AbstractType{
 	public function onPreSubmit(FormEvent $event){
 		$form=$event->getForm();
 		$data=$event->getData();
-		
+		var_dump($data);die();
 	}
 	
 	public function setDefaultOptions(OptionsResolverInterface $resolver){
