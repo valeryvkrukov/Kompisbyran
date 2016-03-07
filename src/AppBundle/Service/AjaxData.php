@@ -49,22 +49,31 @@ class AjaxData{
 		return $stmt->fetch(\PDO::FETCH_ASSOC);
 	}
 	
-	public function getScoreOrderedPersons(Request $request){
+	public function getScoreOrderedPersons(Request $request,$router){
 		$_translator=new Translator($request->getLocale());
 		$response=[
 			'status'=>'fail'
 		];
-		$users=$this->em->getRepository('AppBundle:User')->getMatchedUsers($request->request->get('user_id'));
+		$users=$this->em
+			->getRepository('AppBundle:User')
+			->getMatchedUsers(
+				$request->request->get('user_id'),
+				$request->request->get('filters')/*,
+				$request->request->get('limit'),
+				$request->request->get('offset')*/
+			);
 		$currentCategories=[];
 		foreach($users['user']->getCategories() as $ccat){
 			$currentCategories[]=$ccat->getId();
 		}
 		$response['users']=[];
 		if(isset($users['result'])&&sizeof($users['result'])>0){
-			foreach($users['result'] as $u){
+			foreach($users['result'] as $k=>$u){
+				$municipality=$users['user']->getMunicipality();
 				$matches=[];
 				$matches[]=(isset($u['age'])&&($u['age']==$users['user']->getAge()))?'<span class="matches">'.$u['age'].'</span>':$u['age'];
 				$matches[]=(isset($u['from'])&&($u['from']==$users['user']->getFrom()))?'<span class="matches">'.Countries::getName($u['from']).'</span>':Countries::getName($u['from']);
+				$matches[]=(isset($u['municipality'])&&($u['municipality']==$municipality->getName()))?'<span class="matches">'.$municipality->getName().'</span>':$municipality->getName();
 				$matches[]=(isset($u['hasChildren'])&&($u['hasChildren']==$users['user']->hasChildren()))?'<span class="matches">'.($users['user']->hasChildren()?'kids':'no kids').'</span>':($users['user']->hasChildren()?'kids':'no kids');
 				$interests=[];
 				$_u=$this->em->getRepository('AppBundle:User')->find($u['id']);
@@ -77,7 +86,7 @@ class AjaxData{
 				$row.='</div>';
 				$row.='<div class="col-md-9 presentation">';
 				$row.='<div class="pull-right">';
-				$row.='<a href="" class="btn btn-orange">'.$_translator->trans('Edit Profile').'</a>';
+				$row.='<a href="'.$router->generate('admin_user',['id'=>$u['id']]).'" class="btn btn-orange">'.$_translator->trans('Edit Profile').'</a>';
 				$row.='</div>';
 				$row.='<h4>'.trim(sprintf('%s %s',$u['firstName'],$u['lastName'])).' ('.implode(', ',$matches).')</h4>';
 				$row.='<p class="interests">'.$_translator->trans('Matching interests').' : '.implode(', ',$interests).'</p>';
@@ -85,7 +94,7 @@ class AjaxData{
 				$row.='</div>';
 				$row.='<div class="col-md-2 choice">';
 				$row.='<p><strong>'.$_translator->trans('Choose candidate').'</strong></p>';
-				$row.='<input type="radio" name="gender" value="1">';
+				$row.='<input type="radio" name="userId" value="'.$u['id'].'">';
 				$row.='</div>';
 				$row.='</div>';
 				$response['users'][]=$row;

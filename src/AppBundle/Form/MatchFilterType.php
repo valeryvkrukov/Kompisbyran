@@ -30,7 +30,7 @@ class MatchFilterType extends AbstractType{
 			$categories[$cat->getId()]=$cat->getName();
 		}
 		foreach($this->em->getRepository('AppBundle:Municipality')->findAll() as $area){
-			$areas[$cat->getId()]=$area->getName();
+			$areas[$area->getId()]=$area->getName();
 		}
 		$form
 			->add('category','choice',[
@@ -63,7 +63,7 @@ class MatchFilterType extends AbstractType{
 				'choices'=>['0'=>'No','1'=>'Yes'],
 				'mapped'=>false
 			])
-			->add('country','country',[
+			->add('from','country',[
 				'label'=>'Country',
 				'placeholder'=>'All',
 				'mapped'=>false
@@ -74,7 +74,7 @@ class MatchFilterType extends AbstractType{
 				'choices'=>$areas,
 				'mapped'=>false
 			])
-			->add('type','choice',[
+			->add('musicFriend','choice',[
 				'label'=>'Type',
 				'placeholder'=>'Any',
 				'choices'=>['0'=>'Fikabuddy','1'=>'Musicbuddy'],
