@@ -52,41 +52,42 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            if($request->get('_route')=='ajax_admin_user'){
-            	$interests=[];
-            	foreach($user->getCategories() as $cat){
-            		$interests[]=$cat->getName();
-            	}
-            	$data=[
-            		'fullName'=>trim(sprintf('%s %s',$user->getFirstName(),$user->getLastName())),
-            		'email'=>$user->getEmail(),
-            		'age'=>$user->getAge(),
-            		'district'=>$user->getDistrict(),
-            		'wantToLearn'=>($user->getWantToLearn()==0?'Established':'New'),
-            		'musicFriend'=>($user->isMusicFriend()?'Musicbuddy':'Fikabuddy'),
-            		'from'=>Countries::getName($user->getFrom()),
-            		'childs'=>($user->hasChildren()?'Yes':'No'),
-            		'categories'=>$interests,
-            		'about'=>$user->getAbout(),
-            		'comment'=>'',
-            		'internalComment'=>$user->getInternalComment()
-            	];
-            	return new JsonResponse($data);
-            }else{
-            	return $this->redirect($this->generateUrl('admin_start'));
+            if ($request->get('_route') == 'ajax_admin_user') {
+                $interests = [];
+                foreach ($user->getCategories() as $cat) {
+                    $interests[] = $cat->getName();
+                }
+                $data = [
+                    'fullName' => trim(sprintf('%s %s', $user->getFirstName(), $user->getLastName())),
+                    'email' => $user->getEmail(),
+                    'age' => $user->getAge(),
+                    'district' => $user->getDistrict(),
+                    'wantToLearn' => ($user->getWantToLearn() == 0 ? 'Established' : 'New'),
+                    'musicFriend' => ($user->isMusicFriend() ? 'Musicbuddy' : 'Fikabuddy'),
+                    'from' => Countries::getName($user->getFrom()),
+                    'childs' => ($user->hasChildren() ? 'Yes' : 'No'),
+                    'categories' => $interests,
+                    'about' => $user->getAbout(),
+                    'comment' => '',
+                    'internalComment' => $user->getInternalComment(),
+                ];
+
+                return new JsonResponse($data);
+            } else {
+                return $this->redirect($this->generateUrl('admin_start'));
             }
         }
 
         $parameters = [
-        	'userId' => $user->getId(),
-        	'isAjax' => ($request->get('_route')=='ajax_admin_user'),
+            'userId' => $user->getId(),
+            'isAjax' => ($request->get('_route') == 'ajax_admin_user'),
             'form' => $form->createView(),
         ];
-		if($request->get('_route')=='ajax_admin_user'){
-			return $this->render('admin/user/form.html.twig', $parameters);
-		}else{
-	        return $this->render('admin/user/view.html.twig', $parameters);
-		}
+        if ($request->get('_route') == 'ajax_admin_user') {
+            return $this->render('admin/user/form.html.twig', $parameters);
+        } else {
+            return $this->render('admin/user/view.html.twig', $parameters);
+        }
     }
 
     protected function getUserRepository()

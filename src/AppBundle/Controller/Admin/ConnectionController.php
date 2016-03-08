@@ -20,7 +20,7 @@ class ConnectionController extends Controller
 
         $query = $this->getConnectionRepository()->getFindAllQuery($searchString);
 
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),

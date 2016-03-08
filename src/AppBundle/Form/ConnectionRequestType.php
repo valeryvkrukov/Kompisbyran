@@ -15,7 +15,7 @@ class ConnectionRequestType extends AbstractType
             ->add('city', 'entity', [
                     'label' => 'connection_request.form.city',
                     'class' => 'AppBundle:City',
-                    'query_builder' => function(EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
                     },
                     'property' => 'name',

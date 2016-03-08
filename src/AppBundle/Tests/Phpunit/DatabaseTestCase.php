@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Tests\Phpunit;
 
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -18,7 +19,7 @@ abstract class DatabaseTestCase extends WebTestCase
     protected static $container;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function setUp()
     {
@@ -29,7 +30,7 @@ abstract class DatabaseTestCase extends WebTestCase
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function tearDown()
     {

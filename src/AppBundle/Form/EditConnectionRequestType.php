@@ -21,7 +21,7 @@ class EditConnectionRequestType extends ConnectionRequestType
                 ],
                 'choice_value' => function ($currentChoiceKey) {
                     return $currentChoiceKey ? 'true' : 'false';
-                }
+                },
             ])
         ;
     }

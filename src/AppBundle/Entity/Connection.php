@@ -81,7 +81,7 @@ class Connection
     protected $comments;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(type="boolean")
      */
@@ -207,7 +207,7 @@ class Connection
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isMusicFriend()
     {
@@ -215,7 +215,7 @@ class Connection
     }
 
     /**
-     * @param boolean $musicFriend
+     * @param bool $musicFriend
      */
     public function setMusicFriend($musicFriend)
     {

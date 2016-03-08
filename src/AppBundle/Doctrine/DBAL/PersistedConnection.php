@@ -1,11 +1,12 @@
 <?php
+
 namespace AppBundle\Doctrine\DBAL;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Connection as DriverConnection;
 
 /**
- * Connection wrapper sharing the same db handle across multiple requests
+ * Connection wrapper sharing the same db handle across multiple requests.
  *
  * Allows multiple Connection instances to run in the same transaction
  */
@@ -22,7 +23,7 @@ class PersistedConnection extends Connection
     protected static $persistedTransactionNestingLevels;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function connect()
     {
@@ -42,7 +43,7 @@ class PersistedConnection extends Connection
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function beginTransaction()
     {
@@ -50,7 +51,7 @@ class PersistedConnection extends Connection
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function commit()
     {
@@ -58,7 +59,7 @@ class PersistedConnection extends Connection
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function rollBack()
     {

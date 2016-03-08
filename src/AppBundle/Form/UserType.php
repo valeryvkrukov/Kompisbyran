@@ -2,7 +2,6 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Enum\Languages;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
@@ -45,7 +44,7 @@ class UserType extends AbstractType
                 ],
                 'choice_value' => function ($currentChoiceKey) {
                     return $currentChoiceKey ? 'true' : 'false';
-                }
+                },
             ])
             ->add('categories', 'entity', [
                     'class' => 'AppBundle:GeneralCategory',
@@ -66,8 +65,8 @@ class UserType extends AbstractType
             )
             ->add('age', 'choice', [
                 'label' => 'user.form.age',
-                'empty_data'  => null,
-                'required'    => false,
+                'empty_data' => null,
+                'required' => false,
                 'choices' => array_combine(range(18, 100), range(18, 100)),
             ])
             ->add('gender', 'choice', [
@@ -77,7 +76,7 @@ class UserType extends AbstractType
                     'M' => 'user.form.gender.m',
                     'F' => 'user.form.gender.f',
                     'X' => 'user.form.gender.x',
-                ]
+                ],
             ])
             ->add('about', 'textarea', ['label' => 'user.form.about'])
             ->add('from', 'choice', [
@@ -95,7 +94,7 @@ class UserType extends AbstractType
                 ],
                 'choice_value' => function ($currentChoiceKey) {
                     return $currentChoiceKey ? 'true' : 'false';
-                }
+                },
             ])
             ->add('profilePicture', 'hidden')
             ->add('musicFriend', 'checkbox', [
@@ -105,7 +104,7 @@ class UserType extends AbstractType
             ->add('municipality', 'entity', [
                     'class' => 'AppBundle:Municipality',
                     'property' => 'name',
-                    'empty_data'  => null,
+                    'empty_data' => null,
                     'required' => false,
                     'label' => 'user.form.municipality',
                 ]
@@ -117,14 +116,13 @@ class UserType extends AbstractType
             $builder->add('city', 'entity', [
                 'label' => 'user.form.city',
                 'class' => 'AppBundle:City',
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
                 },
                 'property' => 'name',
                 'mapped' => false,
             ]);
         }
-
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

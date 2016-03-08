@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Tests\Phpunit\Extension;
 
 use AppBundle\Entity\User;
@@ -37,7 +38,6 @@ trait AuthenticationExtensionTrait
         );
         $this->authenticateToken($token);
     }
-
 
     /**
      * @param TokenInterface $token

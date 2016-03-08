@@ -50,7 +50,7 @@
 					<div class="form-group">
 						<label for="matchProfile_district" class="col-sm-2 control-label">{{ 'Area'|trans }}</label>
 						<div class="col-sm-10">
-							{{ form_widget(profileForm.district,{'attr':{'readonly':'readonly'}}) }}
+							{{ form_widget(profileForm.municipality,{'attr':{'readonly':'readonly'}}) }}
 						</div>
 					</div>
 					<div class="form-group">
@@ -193,7 +193,7 @@
 	</div>
 </div>
 <div class="modal fade" id="userEditModal" tabindex="-1" role="dialog" aria-labelledby="userEditModalLabel">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog" role="document" style="width:1000px;">
 		<div class="modal-content">
 		</div>
 	</div>
@@ -218,10 +218,6 @@ jQuery(document).ready(function($){
 							if($.isArray(v)){
 								var html='<ul>';
 								$.each(v,function(_k,_v){
-									/*html+='<div class="checkbox">';
-									html+='<label class="">';
-									html+='<input type="checkbox" id="matchProfile_categories_'+_k+'" name="matchProfile[categories][]" value="'+_k+'">'+_v+'</label>';
-									html+='</div>';*/
 									html+='<li>'+_v+'</li>';
 								});
 								html+='</ul>';

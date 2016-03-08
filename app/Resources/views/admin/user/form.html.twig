@@ -1,0 +1,15 @@
+{% form_theme form '::bootstrap_3_horizontal_changed.html.twig' %}	
+	
+<div class="inner-page" style="padding-top:0;">
+	<div class="container">
+		<h2>{{ 'Edit User'|trans }}</h2>
+		{{ form_start(form,{'action':path('ajax_admin_user',{'id':userId})}) }}
+		{{ form_widget(form) }}
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-9">
+				<button type="button" class="btn btn-default ajax-submit">{{ 'Spara'|trans }}</button>
+			</div>
+		</div>
+		{{ form_end(form) }}
+	</div>
+</div>

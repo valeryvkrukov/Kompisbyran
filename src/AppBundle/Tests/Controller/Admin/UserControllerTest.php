@@ -20,7 +20,7 @@ class UserControllerTest extends DatabaseTestCase
 
         $client = static::$client;
         $users = $this->getUserRepository()->findAll();
-        $client->request('GET', '/admin/users/' . $users[0]->getId());
+        $client->request('GET', '/admin/users/'.$users[0]->getId());
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
@@ -38,5 +38,4 @@ class UserControllerTest extends DatabaseTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertTrue($crawler->filter('html:contains("Epost")')->count() > 0);
     }
-
 }

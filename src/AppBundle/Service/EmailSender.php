@@ -18,7 +18,7 @@ class EmailSender
     protected $templating;
 
     /**
-     * @param \Swift_Mailer $mailer
+     * @param \Swift_Mailer   $mailer
      * @param EngineInterface $templating
      */
     public function __construct(\Swift_Mailer $mailer, EngineInterface $templating)
@@ -42,7 +42,6 @@ class EmailSender
                 'partner' => $connection->getFluentSpeaker(),
             ],
         ];
-
 
         foreach ($emailData as $data) {
             $parameters = [

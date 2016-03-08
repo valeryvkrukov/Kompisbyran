@@ -78,6 +78,4 @@ class ConnectionRequestController extends Controller
 
         return new Response();
     }
-
-
 }

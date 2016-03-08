@@ -270,7 +270,8 @@ class Countries
     public static function getName($code)
     {
         if (!isset(static::$countries[$code])) {
-            throw new \LogicException(sprintf('Country for code %s was not found.', $code));
+            return '';
+            //throw new \LogicException(sprintf('Country for code %s was not found.', $code));
         }
 
         return static::$countries[$code];

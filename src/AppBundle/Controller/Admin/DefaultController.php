@@ -82,11 +82,11 @@ class DefaultController extends Controller
         } else {
             $categories = $this->getGeneralCategoryRepository()->findAll();
         }
-        
-        $stat=$this->getConnectionRequestRepository()->getStat();
+
+        $stat = $this->getConnectionRequestRepository()->getStat();
 
         $parameters = [
-        	'stat' => $stat,
+            'stat' => $stat,
             'categories' => $categories,
             'learners' => $learners,
             'fluentSpeakers' => $fluentSpeakers,

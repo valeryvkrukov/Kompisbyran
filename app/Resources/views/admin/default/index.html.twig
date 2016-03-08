@@ -181,7 +181,7 @@
 		            if(resp.status==='ok'){
 			            var _loaded=$('.persons-list-body').data('loaded')?$('.persons-list-body').data('loaded'):[];
 			            $.each(resp.users,function(k,item){
-				            var row=$('<tr><td>'+item.request_at+'</td><td>'+item.username+'</td><td>'+item.category+'</td><td><a href="{{ path('admin_find_match') }}/'+item.user_id+'" class="btn btn-orange find-match">{{ 'Find Match'|trans }}</a></td></tr>').hide();
+				            var row=$('<tr><td>'+item.request_at+'</td><td>'+item.username+'</td><td>'+item.category+'</td><td><a href="{{ path('admin_find_match') }}/'+item.user_id+'/'+item.req_id+'" class="btn btn-orange find-match">{{ 'Find Match'|trans }}</a></td></tr>').hide();
 				            $('.persons-list-body').append(row);
 				            _loaded.push(item.req_id);
 				        });

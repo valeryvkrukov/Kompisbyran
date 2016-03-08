@@ -40,6 +40,7 @@ class ConnectionRepository extends EntityRepository
     /**
      * @param User $user1
      * @param User $user2
+     *
      * @return Connection[]
      */
     public function findForUsers(User $user1, User $user2)

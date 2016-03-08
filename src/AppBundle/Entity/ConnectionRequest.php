@@ -63,7 +63,7 @@ class ConnectionRequest
     protected $sortOrder;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(type="boolean")
      */
@@ -124,7 +124,7 @@ class ConnectionRequest
     }
 
     /**
-     * @param boolean $wantToLearn
+     * @param bool $wantToLearn
      */
     public function setWantToLearn($wantToLearn)
     {
@@ -132,7 +132,7 @@ class ConnectionRequest
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getWantToLearn()
     {
@@ -172,7 +172,7 @@ class ConnectionRequest
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isMusicFriend()
     {
@@ -180,7 +180,7 @@ class ConnectionRequest
     }
 
     /**
-     * @param boolean $musicFriend
+     * @param bool $musicFriend
      */
     public function setMusicFriend($musicFriend)
     {

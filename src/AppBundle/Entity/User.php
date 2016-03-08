@@ -16,10 +16,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class User extends BaseUser
 {
     /**
-    * @ORM\Id
-    * @ORM\Column(type="integer")
-    * @ORM\GeneratedValue(strategy="AUTO")
-    */
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
     protected $id;
 
     /**
@@ -197,7 +197,7 @@ class User extends BaseUser
     protected $comments;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(type="boolean")
      */
@@ -345,7 +345,7 @@ class User extends BaseUser
     }
 
     /**
-     * @param boolean $wantToLearn
+     * @param bool $wantToLearn
      */
     public function setWantToLearn($wantToLearn)
     {
@@ -353,7 +353,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getWantToLearn()
     {
@@ -499,7 +499,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasChildren()
     {
@@ -507,7 +507,7 @@ class User extends BaseUser
     }
 
     /**
-     * @param boolean $hasChildren
+     * @param bool $hasChildren
      */
     public function setHasChildren($hasChildren)
     {
@@ -515,7 +515,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isMusicFriend()
     {
@@ -523,7 +523,7 @@ class User extends BaseUser
     }
 
     /**
-     * @param boolean $musicFriend
+     * @param bool $musicFriend
      */
     public function setMusicFriend($musicFriend)
     {
