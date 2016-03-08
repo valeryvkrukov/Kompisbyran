@@ -69,8 +69,8 @@ class MatchProfileType extends AbstractType
     {
         $form = $event->getForm();
         $data = $event->getData();
-        var_dump($data);
-        die();
+        //var_dump($data);
+        //die();
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

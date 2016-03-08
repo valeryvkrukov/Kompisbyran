@@ -90,7 +90,7 @@ class AjaxData
                 $row = '<div class="row candidate">';
                 $row .= '<div class="col-md-1">';
                 $row .= '<p class="score">'.$u['summary_points'].'</p>';
-                $row .= '<p>DBG('.$u['cc'].','.$u['cm'].','.$u['ca'].','.$u['cg'].','.$u['ch'].')</p>';
+                //$row .= '<p>DBG('.$u['cc'].','.$u['cm'].','.$u['ca'].','.$u['cg'].','.$u['ch'].')</p>';
                 $row .= '</div>';
                 $row .= '<div class="col-md-9 presentation">';
                 $row .= '<div class="pull-right">';

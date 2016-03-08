@@ -80,12 +80,7 @@ class UserRepository extends EntityRepository
     				(CASE WHEN((u.age-:age)<5) THEN 2 ELSE 0 END)+
     				(CASE WHEN(u.gender=:gender) THEN 1 ELSE 0 END)+
     				(CASE WHEN((u.has_children>0) AND (0<:children)) THEN 2 ELSE 0 END)
-    			) AS summary_points,
-    			(SELECT COUNT(*)*3 FROM users_categories AS c WHERE c.user_id=u.id AND c.category_id IN('.implode(', ', $_catList).')) AS cc,
-    			(CASE WHEN(u.municipality_id=:municipality) THEN 2 ELSE 0 END) AS cm,
-    			(CASE WHEN((u.age-:age)<5) THEN 2 ELSE 0 END) AS ca,
-    			(CASE WHEN(u.gender=:gender) THEN 1 ELSE 0 END) AS cg,
-    			(CASE WHEN((u.has_children>0) AND (0<:children)) THEN 2 ELSE 0 END) AS ch
+    			) AS summary_points
     		FROM fos_user AS u
     			WHERE '.implode(' AND ', $where).'
     		GROUP BY u.id 

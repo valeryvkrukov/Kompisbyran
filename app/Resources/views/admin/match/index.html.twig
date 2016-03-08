@@ -68,7 +68,6 @@
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-2 control-label">{{ 'Interests'|trans }}</label>
 						<div class="col-sm-10">
-							{#{ form_widget(profileForm.categories,{'attr':{'readonly':'readonly'}}) }#}
 							<ul>
 							{% for it in profileForm.categories.children %}
 								<li>{{ it.vars.label }}</li>
